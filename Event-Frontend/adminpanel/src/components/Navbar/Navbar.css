@@ -1,0 +1,24 @@
+.admin-navbar {
+  display: flex;
+  justify-content: space-between;
+  background-color: #343a40;
+  padding: 12px 24px;
+  color: white;
+  align-items: center;
+}
+
+.admin-logo {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.admin-menu .admin-link {
+  margin-left: 20px;
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+}
+
+.admin-link:hover {
+  color: #ffc107;
+}

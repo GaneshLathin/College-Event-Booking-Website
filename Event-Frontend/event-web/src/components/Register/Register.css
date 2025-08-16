@@ -1,0 +1,62 @@
+/* src/pages/Register.css */
+
+.register-background {
+  min-height: 100vh;
+  /* Softer, more inviting gradient */
+  background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%); /* Light pastel blue-grey */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
+  overflow: hidden; /* Prevent scrollbar from background effects */
+  position: relative; /* For potential overlay effects */
+}
+
+/* Optional: Add a subtle overlay for depth */
+.register-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at top left, rgba(255,255,255,0.1), transparent 50%),
+              radial-gradient(circle at bottom right, rgba(255,255,255,0.1), transparent 50%);
+  z-index: 0;
+}
+
+
+.register-paper {
+  padding: 50px; /* Slightly more padding for breathability */
+  border-radius: 25px; /* Softer, more modern rounded corners */
+  backdrop-filter: blur(15px); /* Increased blur for a frosted glass effect */
+  background: rgba(255, 255, 255, 0.85); /* Slightly more transparent */
+  /* Enhanced, multi-layered box-shadow for depth and softness */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), /* Main shadow */
+              0 30px 60px rgba(0, 0, 0, 0.08), /* Deeper shadow */
+              0 0 0 1px rgba(0, 0, 0, 0.05); /* Subtle border effect */
+  position: relative; /* Ensure it's above the background overlay */
+  z-index: 1;
+  max-width: 500px; /* Constrain width for better readability on larger screens */
+  width: 90%; /* Responsive width */
+}
+
+/* Links: Keep them clean but add a subtle transition */
+.forgot-password-link,
+.signin-link {
+  color: #3f51b5; /* Deeper primary color for better contrast */
+  text-decoration: none;
+  font-weight: 600; /* Slightly bolder */
+  transition: color 0.3s ease-in-out, text-decoration 0.3s ease-in-out;
+}
+
+.forgot-password-link:hover,
+.signin-link:hover {
+  color: #2c387e; /* Darker hover state */
+  text-decoration: underline;
+}
+
+/* Additional subtle global adjustments */
+body {
+    font-family: 'Roboto', sans-serif; /* Ensure consistent font */
+}
