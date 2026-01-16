@@ -2,6 +2,7 @@
 package com.example.event_booking.controller;
 
 import com.example.event_booking.dto.LoginRequest;
+import com.example.event_booking.dto.LoginResponse;
 import com.example.event_booking.dto.RegisterRequest;
 import com.example.event_booking.model.User;
 import com.example.event_booking.repository.UserRepository;
@@ -38,6 +39,7 @@ public class AuthController {
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role("STUDENT")
+                .interests(request.getInterests()) // ✅ Save student interests
                 .build();
 
         userRepository.save(user);
@@ -45,19 +47,23 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest request) { // Changed return type
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         Optional<User> optionalUser = userRepository.findByEmail(request.getEmail());
         if (optionalUser.isEmpty()) {
-            return new ResponseEntity<>("Invalid email or password!", HttpStatus.UNAUTHORIZED); // 401 Unauthorized
+            return new ResponseEntity<>("Invalid email or password!", HttpStatus.UNAUTHORIZED);
         }
 
         User user = optionalUser.get();
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            return new ResponseEntity<>("Invalid email or password!", HttpStatus.UNAUTHORIZED); // 401 Unauthorized
+            return new ResponseEntity<>("Invalid email or password!", HttpStatus.UNAUTHORIZED);
         }
 
-        // If email and password are correct, generate and return the token
-        String token = jwtUtil.generateToken(user.getEmail());
-        return new ResponseEntity<>(token, HttpStatus.OK); // 200 OK with token
+        // Generate token
+        String token = jwtUtil.generateToken(user.getEmail(),user.getRole());
+
+        // Return token + role
+        LoginResponse response = new LoginResponse(token, user.getRole());
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
 }

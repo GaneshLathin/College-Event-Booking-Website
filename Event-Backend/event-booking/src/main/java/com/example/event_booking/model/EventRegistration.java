@@ -12,6 +12,33 @@ public class EventRegistration {
     private String id;
     private String eventId;
     private List<TeamMember> teamMembers;
+    private String paymentId;      // Razorpay payment id
+    private String orderId;        // Razorpay order id
+    private String paymentStatus;  // CREATED / SUCCESS / FAILED
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(String paymentId) {
+        this.paymentId = paymentId;
+    }
+
+    public String getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(String paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
 
     public String getEventId() {
         return eventId;

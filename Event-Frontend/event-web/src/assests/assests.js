@@ -15,12 +15,15 @@ import Easwari from './Easwari.png';
 import bg1 from './image1.jpg';
 import bg2 from './image2.jpg';
 import retweet from './retweet.png';
+import logo1 from './logo1.png';
+
 
 export const assets = {
   logo,
   online1,
   online2,
   gaming1,gaming2,dance1,dance2,
-  music1,music2,music3,quiz1,quiz2,quiz3,Easwari,bg1,bg2,retweet
+  music1,music2,music3,quiz1,quiz2,quiz3,Easwari,bg1,bg2,retweet,
+  logo1
 
 };

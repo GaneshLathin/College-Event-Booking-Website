@@ -180,7 +180,7 @@ const Contact = () => {
               </Typography>
               <Box display="flex" justifyContent="center" gap={3}>
                 <Link
-                  href="https://www.instagram.com/srmcampuslife.eec?igsh=MWh4NGJ3OHhpM2R2"
+                  href="https://www.instagram.com/skcetofficial?igsh=MWtxb203czA4bTVrOQ=="
                   target="_blank"
                   rel="noopener"
                   underline="none"
@@ -193,10 +193,10 @@ const Contact = () => {
                     },
                   }}
                 >
-                  srmcampuslife.eec
+                  skcet@insta
                 </Link>
                 <Link
-                  href="https://x.com/campuslife_eec"
+                  href="https://skcet.ac.in/"
                   target="_blank"
                   rel="noopener"
                   underline="none"
@@ -209,7 +209,7 @@ const Contact = () => {
                     },
                   }}
                 >
-                  campuslife_eec
+                  skcet.com
                 </Link>
               </Box>
             </Box>

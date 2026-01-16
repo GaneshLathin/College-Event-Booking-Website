@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { Modal, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -9,10 +10,39 @@ const EventList = () => {
   const [groupedEvents, setGroupedEvents] = useState({});
   const [editEvent, setEditEvent] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
+
+  // ------------------ Access Control ------------------
+  useEffect(() => {
+    const tokenData = localStorage.getItem('jwtToken');
+    if (!tokenData) {
+      navigate('/login');
+      return;
+    }
+
+    let parsedToken;
+    try {
+      parsedToken = JSON.parse(tokenData);
+    } catch (err) {
+      console.error('Invalid token format:', err);
+      localStorage.removeItem('jwtToken');
+      navigate('/login');
+      return;
+    }
+
+    if (parsedToken.role !== 'ADMIN') {
+      alert('Access denied: only admins can view events.');
+      navigate('/login');
+    }
+  }, [navigate]);
 
   const fetchEvents = async () => {
     try {
-      const res = await axios.get('http://localhost:8080/api/events');
+      const token = JSON.parse(localStorage.getItem('jwtToken')).token;
+      const res = await axios.get('http://localhost:8080/api/admin/events', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
       const grouped = res.data.reduce((acc, event) => {
         acc[event.category] = acc[event.category] || [];
         acc[event.category].push(event);
@@ -54,6 +84,8 @@ const EventList = () => {
 
   const handleUpdate = async () => {
     try {
+      const token = JSON.parse(localStorage.getItem('jwtToken')).token;
+
       const formData = new FormData();
       formData.append('title', editEvent.title);
       formData.append('description', editEvent.description);
@@ -69,7 +101,10 @@ const EventList = () => {
         formData.append('image', editEvent.image);
       }
 
-      await axios.put(`http://localhost:8080/api/events/${editEvent.id}`, formData);
+      await axios.put(`http://localhost:8080/api/admin/events/${editEvent.id}`, formData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
       toast.success("Event updated successfully");
       setShowModal(false);
       fetchEvents();
@@ -80,7 +115,10 @@ const EventList = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8080/api/events/${id}`);
+      const token = JSON.parse(localStorage.getItem('jwtToken')).token;
+      await axios.delete(`http://localhost:8080/api/admin/events/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       toast.success("Event deleted");
       fetchEvents();
     } catch (error) {

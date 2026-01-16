@@ -17,12 +17,12 @@ const Header = ({ isLoggedIn, handleLogout }) => {
     >
       <Toolbar sx={{ justifyContent: "space-between", px: 4 }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          <img src={assets.logo} alt="Eventor Logo" style={{ height: 40 }} />
+          <img src={assets.logo1} alt="Eventor Logo" style={{ height: 40 }} />
           <Typography
             variant="h5"
             sx={{ fontWeight: "bold", color: "#ff4081" }}
           >
-            CAMPUS LIFE
+            SKCET
           </Typography>
         </Box>
 
@@ -56,7 +56,7 @@ const Header = ({ isLoggedIn, handleLogout }) => {
                 }}
                 onClick={() => navigate("/registered-events")}
               >
-                VIEW EVENTS
+                VIEW REGISTERED EVENTS
               </Button>
               <Button
                 variant="contained"
