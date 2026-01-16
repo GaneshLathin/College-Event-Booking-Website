@@ -1,4 +1,3 @@
-// src/pages/EventsPage.jsx
 import React, { useEffect, useState } from "react";
 import {
   Box,
@@ -10,24 +9,40 @@ import {
   Container,
   Divider,
   Button,
+  Fab,
+  Tooltip,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Header from "../Header/Header";
+import ChatIcon from '@mui/icons-material/Chat';
 
 const EventsPage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userRole, setUserRole] = useState(null);
   const [groupedEvents, setGroupedEvents] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("jwtToken");
-    setIsLoggedIn(!!token);
+    const storedData = localStorage.getItem("jwtToken");
+    if (storedData) {
+      try {
+        const parsed = JSON.parse(storedData);
+        setIsLoggedIn(true);
+        setUserRole(parsed.role); // store the role
+      } catch (err) {
+        console.error("Failed to parse JWT token:", err);
+        localStorage.removeItem("jwtToken");
+        setIsLoggedIn(false);
+        setUserRole(null);
+      }
+    }
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("jwtToken");
     setIsLoggedIn(false);
+    setUserRole(null);
   };
 
   const fetchEvents = async () => {
@@ -43,9 +58,7 @@ const EventsPage = () => {
     const grouped = {};
     events.forEach((event) => {
       const category = event.category || "Uncategorized";
-      if (!grouped[category]) {
-        grouped[category] = [];
-      }
+      if (!grouped[category]) grouped[category] = [];
       grouped[category].push(event);
     });
     setGroupedEvents(grouped);
@@ -56,11 +69,16 @@ const EventsPage = () => {
   }, []);
 
   const handleRegister = (eventId) => {
-    if (isLoggedIn) {
-      navigate(`/registerevent/${eventId}`);
-    } else {
+    if (!isLoggedIn || userRole !== "STUDENT") {
+      alert("Invalid credentials or not a student");
       navigate("/login");
+    } else {
+      navigate(`/registerevent/${eventId}`);
     }
+  };
+
+  const handleChatbotClick = () => {
+    navigate("/chatbot");
   };
 
   return (
@@ -75,6 +93,7 @@ const EventsPage = () => {
         color: "#fff",
         minHeight: "100vh",
         width: "100%",
+        position: "relative",
       }}
     >
       <Header isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
@@ -89,7 +108,6 @@ const EventsPage = () => {
             <Typography variant="h5" fontWeight={600} sx={{ mb: 2, mt: 4 }}>
               {category}
             </Typography>
-
             <Divider sx={{ mb: 3, width: 80, borderBottom: "3px solid #fff" }} />
 
             <Grid container spacing={4}>
@@ -163,6 +181,52 @@ const EventsPage = () => {
           </Box>
         ))}
       </Container>
+
+      {/* Floating Chatbot Button */}
+      <Tooltip title="Chat with AI Assistant" placement="left">
+        <Fab
+          onClick={handleChatbotClick}
+          sx={{
+            position: "fixed",
+            bottom: 24,
+            right: 24,
+            backgroundColor: "#800000",
+            color: "#fff",
+            width: 60,
+            height: 60,
+            boxShadow: "0 6px 20px rgba(128, 0, 0, 0.4)",
+            transition: "all 0.3s ease",
+            zIndex: 1000,
+            "&:hover": {
+              backgroundColor: "#5a0000",
+              transform: "scale(1.1)",
+              boxShadow: "0 8px 25px rgba(128, 0, 0, 0.6)",
+            },
+            "&:active": {
+              transform: "scale(0.95)",
+            },
+          }}
+        >
+          <ChatIcon sx={{ fontSize: 28 }} />
+        </Fab>
+      </Tooltip>
+
+      {/* Optional: Pulsing animation for the chatbot button */}
+      <style>
+        {`
+          @keyframes chatbotPulse {
+            0% {
+              box-shadow: 0 6px 20px rgba(128, 0, 0, 0.4), 0 0 0 0 rgba(128, 0, 0, 0.7);
+            }
+            70% {
+              box-shadow: 0 6px 20px rgba(128, 0, 0, 0.4), 0 0 0 10px rgba(128, 0, 0, 0);
+            }
+            100% {
+              box-shadow: 0 6px 20px rgba(128, 0, 0, 0.4), 0 0 0 0 rgba(128, 0, 0, 0);
+            }
+          }
+        `}
+      </style>
     </Box>
   );
 };

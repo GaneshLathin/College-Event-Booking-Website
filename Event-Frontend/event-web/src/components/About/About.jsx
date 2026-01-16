@@ -10,21 +10,21 @@ import Header from "../Header/Header";
 
 const previousEvents = [
   {
-    title: "EETHAL",
-    description:
-      "Little hands, big dreams, and a whole lot of love.",
-    postUrl: "https://www.instagram.com/reel/DIlzUoaPRNn/?igsh=MXBwMWlyd2E1cXVidg==",
-  },
-  {
     title: "PONGAL CELEBRATION",
     description:
-      "The Pongal Celebration was a blast!",
-    postUrl: "https://www.instagram.com/reel/DE4v6ZjzUOk/?igsh=eHZ2ZG1wZm1wZ3lw",
+    "The Pongal Celebration was a blast!",
+    postUrl: "https://www.instagram.com/reel/C2H2p_MN7yE/?igsh=eDUxNGk2YTc0ejcy",
   },
   {
-    title: "UTSAV'25",
+    title: "CHRISTMAS CELEBRATION",
+    description:
+      "Little hands, big dreams, and a whole lot of love.",
+    postUrl: "https://www.instagram.com/reel/C1L9xWISVSK/?igsh=Y2xma2oxc2RrbXly",
+  },
+  {
+    title: "KRIZEN",
     description:"The crowd and festive cheer were amazing!",
-    postUrl: "https://www.instagram.com/reel/DFQMRy1hmg1/?igsh=bGNjMXR6eG9qY2dz",
+    postUrl: "https://www.instagram.com/reel/CSCDQxeBIyS/?igsh=MW85YTR4M281NWJ4ag==",
   },
 ];
 
@@ -81,7 +81,7 @@ const About = () => {
       >
         <Box>
           <Typography variant="h3" fontWeight={700}>
-            About SRM EEC Campus Life
+            About SRI KRISHNA INSTITUTIONS 
           </Typography>
           <Typography variant="h6" mt={2}>
             Where Education Meets Celebration & Innovation
@@ -96,15 +96,10 @@ const About = () => {
           sx={{ p: 4, borderRadius: 3, backgroundColor: "#fff", color: "#000" }}
         >
           <Typography variant="h5" fontWeight={600} gutterBottom>
-            Campus Life at Easwari Engineering College 🎓
+            SRI KRISHNA COLLEGE OF ENGINEERING AND TECHNOLOGY🎓
           </Typography>
           <Typography variant="body1" color="text.secondary">
-            SRM Easwari Engineering College fosters a vibrant campus life that blends academics with creativity,
-            culture, and community engagement. From dynamic student clubs and colorful festivals to sports,
-            and social outreach, campus life is designed to enrich the student experience beyond the
-            classroom. With modern amenities, supportive faculty, and countless opportunities for growth,
-            SRM EEC encourages every student to explore their passions, build leadership skills, and create
-            lasting memories.
+           Sri Krishna College of Engineering and Technology fosters a vibrant campus life that blends academics with creativity, culture, and community engagement. From dynamic student clubs and colorful festivals to sports, and social outreach, campus life is designed to enrich the student experience beyond the classroom. With modern amenities, supportive faculty, and countless opportunities for growth, SKCET encourages every student to explore their passions, build leadership skills, and create lasting memories.
           </Typography>
         </Paper>
       </Container>

@@ -18,7 +18,6 @@ import LoginIcon from "@mui/icons-material/Login";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Link, useNavigate } from "react-router-dom";
-import Header from "../Header/Header";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -66,7 +65,7 @@ const Login = () => {
     setOpenSnackbar(false);
   };
 
-  const onSubmitHandler = async (e) => {
+const onSubmitHandler = async (e) => {
   e.preventDefault();
   if (!validate()) return;
 
@@ -81,14 +80,14 @@ const Login = () => {
 
     if (response.ok) {
       // ✅ Check role
-      if (responseData.role === "STUDENT") {
+      if (responseData.role === "ADMIN") {
         localStorage.setItem("jwtToken", JSON.stringify(responseData)); // Save token
         setSnackbarMessage("Login successful!");
         setSnackbarSeverity("success");
         setOpenSnackbar(true);
-        navigate("/"); // redirect to home
+        navigate("/events"); // redirect to home
       } else {
-        setSnackbarMessage("Invalid credentials or not a student");
+        setSnackbarMessage("Invalid credentials or not a Admin");
         setSnackbarSeverity("error");
         setOpenSnackbar(true);
       }
@@ -104,14 +103,10 @@ const Login = () => {
     setOpenSnackbar(true);
   }
 };
-
-
   return (
     <>
-      <Header />
       <Box
         sx={{
-          backgroundImage: `url(${require("../../assests/image2.jpg")})`,
           backgroundRepeat: "no-repeat",
           backgroundPosition: "top center",
           backgroundSize: "100% 100%",

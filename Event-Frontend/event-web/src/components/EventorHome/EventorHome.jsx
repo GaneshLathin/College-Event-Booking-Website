@@ -122,12 +122,12 @@ export default function EventorHome() {
       >
         <Toolbar sx={{ justifyContent: "space-between", px: 4 }}>
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <img src={assets.logo} alt="Eventor Logo" style={{ height: 40 }} />
+            <img src={assets.logo1} alt="Eventor Logo" style={{ height: 40 }} />
             <Typography
               variant="h5"
               sx={{ fontWeight: "bold", color: "#ff4081" }}
             >
-              CAMPUS LIFE
+              SKCET
             </Typography>
           </Box>
 
@@ -159,7 +159,7 @@ export default function EventorHome() {
                   }}
                   onClick={() => navigate("/registered-events")} // Navigates to the /events page
                 >
-                  VIEW EVENTS
+                  VIEW REGISTERED EVENTS
                 </Button>
                 <Button
                   variant="contained"
@@ -284,7 +284,7 @@ export default function EventorHome() {
           OCTOBER, 17<sup>th</sup> - 19<sup>th</sup>, 2025
         </Typography>
         <Typography variant="subtitle1" mb={3}>
-          Easwari Engineering College, Ramapuram, Chennai
+          Sri Krishna Institutions, Kuniyamuthur, Coimbatore
         </Typography>
 
         <Button

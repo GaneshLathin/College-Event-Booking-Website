@@ -10,6 +10,12 @@ import {
   InputAdornment,
   IconButton,
   CircularProgress,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  Chip,
 } from "@mui/material";
 import { toast } from "react-toastify";
 import { useNavigate, Link } from "react-router-dom";
@@ -20,6 +26,18 @@ import PersonIcon from "@mui/icons-material/Person";
 import Header from "../Header/Header";
 import authService from "../../service/authService";
 
+// ✅ Predefined interest categories
+const interestsList = [
+  "Online Events",
+  "Gaming",
+  "Dance",
+  "Music",
+  "Quiz",
+  "Creative Arts",
+  "Performing Arts",
+  "Theater Arts",
+];
+
 const Register = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("jwtToken"));
@@ -29,6 +47,7 @@ const Register = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    interests: [], // ✅ NEW FIELD
   });
 
   const [loading, setLoading] = useState(false);
@@ -42,10 +61,18 @@ const Register = () => {
     }));
   };
 
+  const handleInterestChange = (event) => {
+    const { value } = event.target;
+    setFormData((prev) => ({
+      ...prev,
+      interests: typeof value === "string" ? value.split(",") : value,
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { name, email, password, confirmPassword } = formData;
+    const { name, email, password, confirmPassword, interests } = formData;
 
     if (!name || !email || !password || !confirmPassword) {
       toast.error("All fields are required.");
@@ -54,6 +81,11 @@ const Register = () => {
 
     if (password !== confirmPassword) {
       toast.error("Passwords do not match.");
+      return;
+    }
+
+    if (interests.length === 0) {
+      toast.error("Please select at least one interest.");
       return;
     }
 
@@ -81,7 +113,7 @@ const Register = () => {
   return (
     <Box
       sx={{
-        backgroundImage:`url(${require("../../assests/image2.jpg")})`,
+        backgroundImage: `url(${require("../../assests/image2.jpg")})`,
         backgroundRepeat: "no-repeat",
         backgroundPosition: "top center",
         backgroundSize: "100% 100%",
@@ -181,7 +213,9 @@ const Register = () => {
                         ),
                         endAdornment: (
                           <InputAdornment position="end">
-                            <IconButton onClick={() => setShowPassword((prev) => !prev)}>
+                            <IconButton
+                              onClick={() => setShowPassword((prev) => !prev)}
+                            >
                               {showPassword ? <VisibilityOff /> : <Visibility />}
                             </IconButton>
                           </InputAdornment>
@@ -207,14 +241,50 @@ const Register = () => {
                         ),
                         endAdornment: (
                           <InputAdornment position="end">
-                            <IconButton onClick={() => setShowConfirmPassword((prev) => !prev)}>
-                              {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                            <IconButton
+                              onClick={() =>
+                                setShowConfirmPassword((prev) => !prev)
+                              }
+                            >
+                              {showConfirmPassword ? (
+                                <VisibilityOff />
+                              ) : (
+                                <Visibility />
+                              )}
                             </IconButton>
                           </InputAdornment>
                         ),
                       }}
                     />
                   </Grid>
+
+                  {/* ✅ Interests Multi-Select */}
+                  <Grid item xs={12}>
+                    <FormControl fullWidth>
+                      <InputLabel id="interests-label">Select Interests</InputLabel>
+                      <Select
+                        labelId="interests-label"
+                        multiple
+                        value={formData.interests}
+                        onChange={handleInterestChange}
+                        input={<OutlinedInput label="Select Interests" />}
+                        renderValue={(selected) => (
+                          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                            {selected.map((value) => (
+                              <Chip key={value} label={value} />
+                            ))}
+                          </Box>
+                        )}
+                      >
+                        {interestsList.map((interest) => (
+                          <MenuItem key={interest} value={interest}>
+                            {interest}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Grid>
+
                   <Grid item xs={12}>
                     <Button
                       type="submit"
@@ -233,13 +303,20 @@ const Register = () => {
                         },
                       }}
                     >
-                      {loading ? <CircularProgress size={24} sx={{ color: "#fff" }} /> : "Register"}
+                      {loading ? (
+                        <CircularProgress size={24} sx={{ color: "#fff" }} />
+                      ) : (
+                        "Register"
+                      )}
                     </Button>
                   </Grid>
                   <Grid item xs={12}>
                     <Typography textAlign="center">
                       Already have an account?{" "}
-                      <Link to="/login" style={{ fontWeight: "bold", color: "#1976d2" }}>
+                      <Link
+                        to="/login"
+                        style={{ fontWeight: "bold", color: "#1976d2" }}
+                      >
                         Login here
                       </Link>
                     </Typography>

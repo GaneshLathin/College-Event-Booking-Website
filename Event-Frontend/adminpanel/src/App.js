@@ -7,6 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import Navbar from './components/Navbar/Navbar';
 import AddEvent from './components/AddEvent/AddEvent';
 import EventList from './components/EventList/EventList';
+import RegisteredEvents from './components/RegisteredEvents';
+import Login from './components/Login';
 
 function App() {
   return (
@@ -16,7 +18,8 @@ function App() {
       <Routes>
         <Route path="/add" element={<AddEvent />} />
         <Route path="/events" element={<EventList />} />
-        <Route path="/" element={<EventList />} />
+        <Route path="/registered-events" element={<RegisteredEvents />} />
+        <Route path="/" element={<Login />} />
       </Routes>
     </>
   );

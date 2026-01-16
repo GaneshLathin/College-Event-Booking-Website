@@ -34,14 +34,26 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**", "/api/events/**").permitAll()
+                        // Public: anyone can view events list
+                        .requestMatchers("/api/events","/api/auth/**").permitAll()
+                        // STUDENT: can register and view own registrations
+                        .requestMatchers("/api/registrations/**").hasAnyAuthority("STUDENT", "ADMIN")
+                        .requestMatchers("/api/payment/**").hasAuthority("STUDENT")
+
+                        // ADMIN: can manage events
+                        .requestMatchers("/api/admin/events/**").hasAuthority("ADMIN")
+
+                        // Any other request requires authentication
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(jwtAuthenticationFilter, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthenticationFilter,
+                        org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
+
+
 
     @Bean
     public UrlBasedCorsConfigurationSource corsConfigurationSource() {

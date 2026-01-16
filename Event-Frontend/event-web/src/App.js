@@ -11,6 +11,7 @@ import ResetPassword from "./components/ResetPassword/ResetPassword";
 import RegisterEvent from "./components/RegisterEvent/RegisterEvent";
 import EventRegistration from "./components/EventRegistration/EventRegistration";
 import RegisteredEvents from "./components/RegisteredEvents/RegisteredEvents";
+import EnhancedChatbot from "./components/EnhancedChatbot";
 
 function App() {
   return (
@@ -29,8 +30,9 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/registerevent/:id" element={<RegisterEvent />} />
-<Route path="/registration/:id" element={<EventRegistration />} />
-<Route path="/registered-events" element={<RegisteredEvents />} />
+           <Route path="/registration/:id" element={<EventRegistration />} />
+          <Route path="/registered-events" element={<RegisteredEvents />} />
+         <Route path="/chatbot" element={<EnhancedChatbot/>}/>
 
 
 
