@@ -12,7 +12,7 @@ import RegisterEvent from "./components/RegisterEvent/RegisterEvent";
 import EventRegistration from "./components/EventRegistration/EventRegistration";
 import RegisteredEvents from "./components/RegisteredEvents/RegisteredEvents";
 import EnhancedChatbot from "./components/EnhancedChatbot";
-
+//app.jsx
 function App() {
   return (
     <BrowserRouter>
