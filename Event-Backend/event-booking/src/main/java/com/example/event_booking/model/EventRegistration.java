@@ -1,16 +1,18 @@
 package com.example.event_booking.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.*;
 
 import java.util.List;
 
-@Document(collection = "event_registrations")
+@Entity
+@Table(name = "event_registrations")
 public class EventRegistration {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String eventId;
+    @ElementCollection
     private List<TeamMember> teamMembers;
     private String paymentId;      // Razorpay payment id
     private String orderId;        // Razorpay order id

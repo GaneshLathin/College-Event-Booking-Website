@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id; // Import for MongoDB
-import org.springframework.data.mongodb.core.index.Indexed; // For creating indexes
-import org.springframework.data.mongodb.core.mapping.Document; // Import for MongoDB
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
@@ -14,13 +12,15 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "otps") // This maps your Otp class to an 'otps' collection in MongoDB
+@Entity
+@Table(name = "otps")
 public class Otp {
 
-    @Id // MongoDB typically uses String for _id
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @Indexed(unique = true) // Consider if email+otp should be unique or if you allow multiple OTPs per email
+    @Column(unique = true)
     private String email;
 
     private String otpCode;

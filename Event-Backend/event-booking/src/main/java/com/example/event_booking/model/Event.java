@@ -1,16 +1,19 @@
 package com.example.event_booking.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.*;
 
-@Document("events")
+@Entity
+@Table(name = "events")
 public class Event {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String title;
+    @Column(columnDefinition = "TEXT")
     private String description;
     private String category;
     private String image;
+    @Column(columnDefinition = "TEXT")
     private String rulesAndRegulations;
     private String startTime;
     private String endTime;

@@ -1,4 +1,8 @@
 package com.example.event_booking.model;
+
+import jakarta.persistence.Embeddable;
+
+@Embeddable
 public class TeamMember {
     private String name;
     private String email;

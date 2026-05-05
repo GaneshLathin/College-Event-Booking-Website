@@ -86,7 +86,7 @@ const EventRegistration = () => {
       const sanitizedTitle = event.title.replace(/[^a-zA-Z0-9 ]/g, "");
 
       const options = {
-        key: "rzp_test_S2n8hNC4HsIQ0U",
+        key: "",
         amount: amount * 100,
         currency,
         name: "College Event",
